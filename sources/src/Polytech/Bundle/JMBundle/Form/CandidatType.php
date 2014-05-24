@@ -16,7 +16,6 @@ class CandidatType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('election')
         ;
     }
     

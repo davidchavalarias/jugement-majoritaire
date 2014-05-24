@@ -7,6 +7,11 @@
             <h1>Election : {{ entity.nom }}</h1>
             <h3>Statut : {% if entity.finished %}Terminée{% elseif entity.started %}En cours{% else %}Pas commencée{% endif %}</h3>
             <a class="btn btn-default" href="{{ path('crud_election') }}">Retour à la liste des élections</a>
+            {% if not entity.started %}
+                <a href="{{ path('crud_election_setStarted', {'id': entity.id}) }}" class="btn btn-success">Commencer le vote</a>
+            {% elseif not entity.finished %}
+                <a href="{{ path('crud_election_setFinished', {'id': entity.id}) }}" class="btn btn-danger">Terminer le vote</a>
+            {% endif %}
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -21,15 +26,16 @@
                     {% for candidat in entity.candidats %}
                         <tr>
                             <td>{{ candidat.nom }}</td>
-                            <td><a class="btn btn-default btn-sm" href="{{ path('crud_candidat_delete_check', { 'id': candidat.id }) }}">Supprimer</a></td>
+                            <td>{% if not entity.started %}<a class="btn btn-default btn-sm" href="{{ path('crud_candidat_delete_check', { 'id': candidat.id }) }}">Supprimer</a>{% endif %}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-
-                <a class="btn btn-default" href="{{ path('crud_candidat_new') }}">
+                {% if not entity.started %}
+                <a class="btn btn-default" href="{{ path('crud_candidat_new', {'id': entity.id}) }}">
                     Ajouter un  candidat
                 </a>
+                {% endif %}
             </div>
             <div class="col-sm-6">
                 <table class="records_list table table-hover">

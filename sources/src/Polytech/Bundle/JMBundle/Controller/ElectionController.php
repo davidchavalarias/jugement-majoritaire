@@ -234,4 +234,25 @@ class ElectionController extends Controller
             ->getForm()
         ;
     }
+
+
+    public function setStartedAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
+        $entity->setStarted(true);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('crud_election_show', array('id' => $id )));
+    }
+
+    public function setFinishedAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
+        $entity->setFinished(true);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('crud_election_show', array('id' => $id )));
+    }
 }

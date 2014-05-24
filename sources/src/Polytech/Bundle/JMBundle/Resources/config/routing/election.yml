@@ -28,3 +28,11 @@ crud_election_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "PolytechJMBundle:Election:delete" }
     requirements: { _method: post|delete }
+
+crud_election_setStarted:
+    pattern:  /{id}/start
+    defaults: { _controller: "PolytechJMBundle:Election:setStarted" }
+
+crud_election_setFinished:
+    pattern:  /{id}/finish
+    defaults: { _controller: "PolytechJMBundle:Election:setFinished" }

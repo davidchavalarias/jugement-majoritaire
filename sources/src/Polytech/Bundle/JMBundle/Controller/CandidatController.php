@@ -34,11 +34,12 @@ class CandidatController extends Controller
      * Creates a new Candidat entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new Candidat();
-        $form = $this->createCreateForm($entity);
+        $entity->setElection($em->getRepository('PolytechJMBundle:Election')->find($id));
+        $form = $this->createCreateForm($entity, $id);
         $form->handleRequest($request);
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
@@ -46,8 +47,7 @@ class CandidatController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('crud_candidat_show', array(
-                'currentElections' => $currentElections, 'id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('crud_election_show', array('id' => $entity->getElection()->getId())));
         }
 
         return $this->render('PolytechJMBundle:Candidat:new.html.twig', array(
@@ -64,14 +64,14 @@ class CandidatController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Candidat $entity)
+    private function createCreateForm(Candidat $entity, $id)
     {
         $form = $this->createForm(new CandidatType(), $entity, array(
-            'action' => $this->generateUrl('crud_candidat_create'),
+            'action' => $this->generateUrl('crud_candidat_create', array('id' => $id )),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Ajouter'));
 
         return $form;
     }
@@ -80,11 +80,12 @@ class CandidatController extends Controller
      * Displays a form to create a new Candidat entity.
      *
      */
-    public function newAction()
+    public function newAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new Candidat();
-        $form   = $this->createCreateForm($entity);
+        $entity->setElection($em->getRepository('PolytechJMBundle:Election')->find($id));
+        $form   = $this->createCreateForm($entity, $id);
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         return $this->render('PolytechJMBundle:Candidat:new.html.twig', array(
@@ -209,12 +210,13 @@ class CandidatController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Candidat entity.');
             }
-
+            $election = $entity->getElection();
             $em->remove($entity);
             $em->flush();
+            return $this->redirect($this->generateUrl('crud_election_show', array('id' => $election->getId() )));
         }
 
-        return $this->redirect($this->generateUrl('crud_candidat'));
+        return $this->redirect($this->generateUrl('crud_election'));
     }
 
     /**

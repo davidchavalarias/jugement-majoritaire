@@ -7,11 +7,11 @@ crud_candidat_show:
     defaults: { _controller: "PolytechJMBundle:Candidat:show" }
 
 crud_candidat_new:
-    pattern:  /new
+    pattern:  /{id}/new
     defaults: { _controller: "PolytechJMBundle:Candidat:new" }
 
 crud_candidat_create:
-    pattern:  /create
+    pattern:  /{id}/create
     defaults: { _controller: "PolytechJMBundle:Candidat:create" }
     requirements: { _method: post }
 
