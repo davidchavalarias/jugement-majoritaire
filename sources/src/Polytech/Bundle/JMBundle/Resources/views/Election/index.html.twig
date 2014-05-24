@@ -2,7 +2,7 @@
 
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <h1>Liste des élections</h1>
 
@@ -19,28 +19,18 @@
                     <tr>
                         <td>{{ entity.nom }}</td>
                         <td>{% if entity.finished %}Terminée{% elseif entity.started %}En cours{% else %}Pas commencée{% endif %}</td>
-                        <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('crud_election_show', { 'id': entity.id }) }}">show</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('crud_election_edit', { 'id': entity.id }) }}">edit</a>
-                            </li>
-                        </ul>
+                        <td><a class="btn btn-sm btn-default" href="{{ path('crud_election_show', { 'id': entity.id }) }}">
+                            <span class="glyphicon glyphicon-eye-open"></span> Details</a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-
-                <ul>
-                <li>
-                    <a href="{{ path('crud_election_new') }}">
-                        Create a new entry
-                    </a>
-                </li>
-            </ul>
+        </div>
+        <div class="row">
+            <a href="{{ path('crud_election_new') }}">Ajouter un candidat</a>
+        </div>
+                
         </div>
     </div>
 {% endblock %}

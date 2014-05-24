@@ -22,11 +22,12 @@ class CandidatController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $entities = $em->getRepository('PolytechJMBundle:Candidat')->findAll();
 
         return $this->render('PolytechJMBundle:Candidat:index.html.twig', array(
             'entities' => $entities,
+            'currentElections' => $currentElections, 
         ));
     }
     /**
@@ -35,21 +36,24 @@ class CandidatController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $entity = new Candidat();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('crud_candidat_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('crud_candidat_show', array(
+                'currentElections' => $currentElections, 'id' => $entity->getId())));
         }
 
         return $this->render('PolytechJMBundle:Candidat:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
 
@@ -78,12 +82,15 @@ class CandidatController extends Controller
      */
     public function newAction()
     {
+        $em = $this->getDoctrine()->getManager();
         $entity = new Candidat();
         $form   = $this->createCreateForm($entity);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         return $this->render('PolytechJMBundle:Candidat:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
 
@@ -96,6 +103,7 @@ class CandidatController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PolytechJMBundle:Candidat')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Candidat entity.');
@@ -105,7 +113,8 @@ class CandidatController extends Controller
 
         return $this->render('PolytechJMBundle:Candidat:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections,         ));
     }
 
     /**
@@ -117,6 +126,7 @@ class CandidatController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PolytechJMBundle:Candidat')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Candidat entity.');
@@ -129,6 +139,7 @@ class CandidatController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
 
@@ -159,6 +170,7 @@ class CandidatController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PolytechJMBundle:Candidat')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Candidat entity.');
@@ -171,13 +183,14 @@ class CandidatController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('crud_candidat_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('crud_candidat_edit', array('currentElections' => $currentElections, 'id' => $id)));
         }
 
         return $this->render('PolytechJMBundle:Candidat:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
     /**
@@ -202,6 +215,29 @@ class CandidatController extends Controller
         }
 
         return $this->redirect($this->generateUrl('crud_candidat'));
+    }
+
+    /**
+     * Checks before deleting a Candidat entity.
+     *
+     */
+    public function deleteCheckAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('PolytechJMBundle:Candidat')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Candidat entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('PolytechJMBundle:Candidat:deleteCheck.html.twig', array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections,         ));
     }
 
     /**
