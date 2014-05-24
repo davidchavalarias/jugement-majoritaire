@@ -1,0 +1,30 @@
+crud_candidat:
+    pattern:  /
+    defaults: { _controller: "PolytechJMBundle:Candidat:index" }
+
+crud_candidat_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PolytechJMBundle:Candidat:show" }
+
+crud_candidat_new:
+    pattern:  /new
+    defaults: { _controller: "PolytechJMBundle:Candidat:new" }
+
+crud_candidat_create:
+    pattern:  /create
+    defaults: { _controller: "PolytechJMBundle:Candidat:create" }
+    requirements: { _method: post }
+
+crud_candidat_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PolytechJMBundle:Candidat:edit" }
+
+crud_candidat_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PolytechJMBundle:Candidat:update" }
+    requirements: { _method: post|put }
+
+crud_candidat_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PolytechJMBundle:Candidat:delete" }
+    requirements: { _method: post|delete }

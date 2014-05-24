@@ -35,3 +35,7 @@ polytech_jm_security:
 PolytechJMBundle_crud_election:
     resource: "routing/election.yml"
     prefix:   /crud/election
+
+PolytechJMBundle_crud_candidat:
+    resource: "routing/candidat.yml"
+    prefix:   /crud/candidat

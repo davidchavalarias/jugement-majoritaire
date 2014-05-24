@@ -24,9 +24,11 @@ class ElectionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PolytechJMBundle:Election')->findAll();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         return $this->render('PolytechJMBundle:Election:index.html.twig', array(
             'entities' => $entities,
+            'currentElections' => $currentElections, 
         ));
     }
     /**
@@ -36,6 +38,8 @@ class ElectionController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Election();
+        $em = $this->getDoctrine()->getManager();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,12 +48,13 @@ class ElectionController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('crud_election_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('crud_election_show', array('currentElections' => $currentElections, 'id' => $entity->getId())));
         }
 
         return $this->render('PolytechJMBundle:Election:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
 
@@ -80,10 +85,13 @@ class ElectionController extends Controller
     {
         $entity = new Election();
         $form   = $this->createCreateForm($entity);
+        $em = $this->getDoctrine()->getManager();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         return $this->render('PolytechJMBundle:Election:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
 
@@ -96,6 +104,7 @@ class ElectionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Election entity.');
@@ -105,7 +114,8 @@ class ElectionController extends Controller
 
         return $this->render('PolytechJMBundle:Election:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections,         ));
     }
 
     /**
@@ -117,6 +127,7 @@ class ElectionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Election entity.');
@@ -129,6 +140,7 @@ class ElectionController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
 
@@ -159,6 +171,7 @@ class ElectionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Election entity.');
@@ -171,13 +184,14 @@ class ElectionController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('crud_election_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('crud_election_edit', array('currentElections' => $currentElections, 'id' => $id)));
         }
 
         return $this->render('PolytechJMBundle:Election:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'currentElections' => $currentElections, 
         ));
     }
     /**

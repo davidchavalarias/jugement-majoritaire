@@ -65,7 +65,7 @@ class Election
         $this->started = false;
         $this->finished = false;
         $this->candidats = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->date = new \Date();
+        $this->date = new \DateTime("now");
     }
 
     /**
