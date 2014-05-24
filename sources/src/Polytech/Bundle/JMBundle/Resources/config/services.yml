@@ -1,0 +1,7 @@
+parameters:
+#    polytech_jm.example.class: Polytech\Bundle\JMBundle\Example
+
+services:
+#    polytech_jm.example:
+#        class: %polytech_jm.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,4 @@
+polytech_jm:
+    resource: "@PolytechJMBundle/Resources/config/routing.yml"
+    prefix:   /
+

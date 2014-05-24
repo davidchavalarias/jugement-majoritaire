@@ -1,0 +1,18 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+		<div class="row">
+			<h1>Election : {{ election.nom }}</h1>
+		</div>
+    	<div class="row">
+    		{{ form(edit_form) }}
+    	</div>
+
+	    
+
+	<ul class="record_actions">
+	    
+	    <li>{{ form(delete_form) }}</li>
+	</ul>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+		<div class="row">
+			<h1>Participer à une élection :</h1>
+		</div>
+		{% for e in elections %}
+			<div class="row">
+				<a href="{{ path('polytech_jm_check_vote', {'idElection': e.id }) }}">{{ e.nom }}</a>
+			</div>
+		{% endfor %}
+		<div class="row">
+			<h1>Voir les résultats d'anciens scrutins :</h1>
+		</div>
+		{% for e in oldElections %}
+			<div class="row">
+				<a href="{{ path('polytech_jm_stats', {'idElection': e.id }) }}">{{ e.nom }}</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

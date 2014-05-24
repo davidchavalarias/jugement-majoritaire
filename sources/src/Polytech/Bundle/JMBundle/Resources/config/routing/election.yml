@@ -1,0 +1,30 @@
+crud_election:
+    pattern:  /
+    defaults: { _controller: "PolytechJMBundle:Election:index" }
+
+crud_election_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PolytechJMBundle:Election:show" }
+
+crud_election_new:
+    pattern:  /new
+    defaults: { _controller: "PolytechJMBundle:Election:new" }
+
+crud_election_create:
+    pattern:  /create
+    defaults: { _controller: "PolytechJMBundle:Election:create" }
+    requirements: { _method: post }
+
+crud_election_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PolytechJMBundle:Election:edit" }
+
+crud_election_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PolytechJMBundle:Election:update" }
+    requirements: { _method: post|put }
+
+crud_election_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PolytechJMBundle:Election:delete" }
+    requirements: { _method: post|delete }

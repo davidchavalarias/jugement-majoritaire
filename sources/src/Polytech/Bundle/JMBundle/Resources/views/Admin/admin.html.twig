@@ -1,0 +1,53 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+		<div class="row">
+			<h1>Liste des élections : </h1>
+		</div>
+		<table class="records_list">
+	        <thead>
+	            <tr>
+	                <th>Id</th>
+	                <th>Nom</th>
+	                <th>Statut</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        {% for entity in entities %}
+	            <tr>
+	                <td><a href="{{ path('admin_election_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+	                <td>{{ entity.nom }}</td>
+	                {% if entity.finished %}
+	                	<td>Finie</td>
+	                {% elseif entity.started %}
+	                	<td>En cours</td>
+	                {% else %}
+	                	<td>Pas commencée</td>
+	                {% endif %}
+	                <td>
+	                <ul>
+	                    <li>
+	                        <a href="{{ path('admin_election_show', { 'id': entity.id }) }}">show</a>
+	                    </li>
+	                    <li>
+	                        <a href="{{ path('admin_election_edit', { 'id': entity.id }) }}">edit</a>
+	                    </li>
+	                </ul>
+	                </td>
+	            </tr>
+	        {% endfor %}
+	        </tbody>
+	    </table>
+		{% for e in elections %}
+			<div class="row">
+				<a href="{{ path('polytech_jm_index') }}">{{ e.nom }}</a>
+			</div>
+		{% endfor %}
+
+		<div class="row">
+			<a href="{{ path('polytech_jm_index') }}">Nouvelle élection</a>
+		</div>
+	</div>
+{% endblock %}

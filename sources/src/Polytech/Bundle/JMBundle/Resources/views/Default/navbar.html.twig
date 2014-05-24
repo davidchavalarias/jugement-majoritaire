@@ -1,0 +1,46 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Plus...</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ path('polytech_jm_index') }}">Jugement Majoritaire</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ path('polytech_jm_vote', {'idElection': 1}) }}">Votez</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a><b>Elections en cours :</b></a></li>
+              {% for e in elections if e.started %}
+                <li><a href="{{ path('polytech_jm_index') }}">> {{ e.nom }}</a></li>
+              {% endfor %}
+              <li class="divider"></li>
+              <li><a href="{{ path('polytech_jm_candidats') }}">Toutes les élections</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Tout réinitialiser</a></li>
+            </ul>
+          </li>
+        {% endif %}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if is_granted('ROLE_USER') %}
+          <li><a>Connecté en tant que : {{ app.security.token.user.username }}</a></li>
+        <li class="active"><a href="{{ path('logout') }}">Se déconnecter</a></li>
+
+        {% else %}
+          <li class="active"><a href="{{ path('login') }}">Connexion</a></li>
+        {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,37 @@
+polytech_jm_index:
+    pattern:  /
+    defaults: { _controller: PolytechJMBundle:Default:index }
+   
+polytech_jm_admin:
+    pattern:  /admin
+    defaults: { _controller: PolytechJMBundle:Default:admin }
+    
+polytech_jm_stats:
+    pattern:  /stats
+    defaults: { _controller: PolytechJMBundle:Default:stats }
+     
+polytech_jm_candidats:
+    pattern:  /election/{idElection}/candidats
+    defaults: { _controller: PolytechJMBundle:Default:candidats }
+    requirements:
+        idElection:  \d+
+    
+polytech_jm_vote:
+    pattern:  /election/{idElection}/vote
+    defaults: { _controller: PolytechJMBundle:Default:vote }
+    requirements:
+        idElection:  \d+
+    methods: [POST]
+    
+polytech_jm_check_vote:
+    pattern:  /election/{idElection}/vote
+    defaults: { _controller: PolytechJMBundle:Default:checkvote }
+    requirements:
+        idElection:  \d+
+
+polytech_jm_security:
+    resource: "security.yml"
+
+PolytechJMBundle_crud_election:
+    resource: "routing/election.yml"
+    prefix:   /crud/election
