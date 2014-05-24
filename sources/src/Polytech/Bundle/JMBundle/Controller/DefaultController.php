@@ -27,12 +27,12 @@ class DefaultController extends Controller
         $builder = $this->createFormBuilder();
         foreach ($candidats as $candidat)
         {
-            $builder->add('mention-'.$candidat->getNom(), 'entity', array(
+            $builder->add('mention-'.htmlentities(str_replace(' ', '_',$candidat->getNom())), 'entity', array(
                 'class' => 'PolytechJMBundle:Mention',
                 'property' => 'nom',
                 'expanded' => true,
                 'multiple' => false,
-                'label' => $candidat->getNom(),
+                'label' => htmlentities($candidat->getNom()),
                 'label_attr' => array('class' => 'col-md-2'),
                 'attr' => array('style' => 'display:inline', 'class' => 'col-md-10')
             ));
@@ -68,7 +68,7 @@ class DefaultController extends Controller
             {
                 $vote = new Vote();
                 $vote->setCandidat($candidat);
-                $vote->setMention($form->get('mention-'.$candidat->getNom())->getData());
+                $vote->setMention($form->get('mention-'.htmlentities(str_replace(' ', '_',$candidat->getNom()))->getData());
                 $vote->setElecteur($elec);
                 $em->persist($vote);
 
