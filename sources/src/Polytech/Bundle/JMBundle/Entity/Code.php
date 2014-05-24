@@ -90,4 +90,8 @@ class Code
     {
         return $this->election;
     }
+
+    public function __toString() {
+        return $this->getCode();
+    }
 }

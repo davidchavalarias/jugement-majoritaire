@@ -21,7 +21,7 @@ polytech_jm_vote:
     defaults: { _controller: PolytechJMBundle:Default:vote }
     requirements:
         idElection:  \d+
-    methods: [POST]
+    #methods: [POST]
     
 polytech_jm_check_vote:
     pattern:  /election/{idElection}/vote
@@ -34,8 +34,8 @@ polytech_jm_security:
 
 PolytechJMBundle_crud_election:
     resource: "routing/election.yml"
-    prefix:   /crud/election
+    prefix:   /admin/election
 
 PolytechJMBundle_crud_candidat:
     resource: "routing/candidat.yml"
-    prefix:   /crud/candidat
+    prefix:   /admin/candidat

@@ -118,4 +118,8 @@ class Vote
     {
         return $this->mention;
     }
+
+    public function __toString() {
+        return $this->getId();
+    }
 }

@@ -1,15 +1,20 @@
-{% extends '::base.html.twig' %}
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
-{% block body -%}
-    <h1>Candidat creation</h1>
 
-    {{ form(form) }}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+		    <h1>Nouveau candidat</h1>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('crud_candidat') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+		    {{ form(form) }}
+
+			<ul class="record_actions">
+			    <li>
+			        <a href="{{ path('crud_candidat') }}">
+			            Back to the list
+			        </a>
+			    </li>
+			</ul>
+		</div>
+	</div>
 {% endblock %}

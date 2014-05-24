@@ -173,10 +173,10 @@ class Election
     /**
      * Add candidats
      *
-     * @param \Polytech\JMBundle\Entity\Candidat $candidat
+     * @param Candidat $candidat
      * @return Election
      */
-    public function addCandidat(\Polytech\JMBundle\Entity\Candidat $candidat)
+    public function addCandidat(Candidat $candidat)
     {
         $this->candidats[] = $candidat;
         $candidat->setElection($this);
@@ -189,7 +189,7 @@ class Election
      *
      * @param \Polytech\JMBundle\Entity\Candidat $candidat
      */
-    public function removeCandidat(\Polytech\JMBundle\Entity\Candidat $candidat)
+    public function removeCandidat(Candidat $candidat)
     {
         $this->candidats->removeElement($candidat);
     }
@@ -207,10 +207,10 @@ class Election
     /**
      * Add code
      *
-     * @param \Polytech\JMBundle\Entity\Code $code
+     * @param Code $code
      * @return Code
      */
-    public function addCode(\Polytech\JMBundle\Entity\Code $code)
+    public function addCode(Code $code)
     {
         $this->codes[] = $code;
         $code->setElection($this);
@@ -221,9 +221,9 @@ class Election
     /**
      * Remove code
      *
-     * @param \Polytech\JMBundle\Entity\Code $code
+     * @param Code $code
      */
-    public function removeCode(\Polytech\JMBundle\Entity\Code $code)
+    public function removeCode(Code $code)
     {
         $this->codes->removeElement($code);
     }
@@ -236,5 +236,9 @@ class Election
     public function getCodes()
     {
         return $this->codes;
+    }
+
+    public function __toString() {
+        return $this->getNom();
     }
 }

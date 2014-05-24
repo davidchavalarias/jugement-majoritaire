@@ -1,5 +1,6 @@
 {% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
+
 {% block body %}
     <div class="container-fluid">
         <div class="row">
@@ -16,18 +17,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for election in currentElections %}
+                {% for candidat in entity.candidats %}
                     <tr>
-                        <td><a href="{{ path('crud_candidat_show', { 'id': election.id }) }}">{{ election.id }}</a></td>
-                        <td>{{ election.nom }}</td>
-                        <td>
-                            <a class="btn btn-default btn-sm" href="{{ path('crud_candidat_show', { 'id': election.id }) }}">
-                                <span class="glyphicon glyphicon-eye-open"></span> Détails
-                            </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('crud_candidat_edit', { 'id': election.id }) }}">
-                                <span class="glyphicon glyphicon-pencil"></span> Editer
-                            </a>
-                        </td>
+                        <td><a href="{{ path('crud_candidat_show', { 'id': candidat.id }) }}">{{ candidat.id }}</a></td>
+                        <td>{{ candidat.nom }}</td>
+                        <td></td>
                     </tr>
                 {% endfor %}
                 </tbody>

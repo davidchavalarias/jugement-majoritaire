@@ -84,10 +84,10 @@ class Candidat
     /**
      * Add votes
      *
-     * @param \Polytech\JMBundle\Entity\Vote $vote
+     * @param Vote $vote
      * @return Candidat
      */
-    public function addVote(\Polytech\JMBundle\Entity\Vote $vote)
+    public function addVote(Vote $vote)
     {
         $this->votes[] = $vote;
 
@@ -97,9 +97,9 @@ class Candidat
     /**
      * Remove votes
      *
-     * @param \Polytech\JMBundle\Entity\Vote $vote
+     * @param Vote $vote
      */
-    public function removeVote(\Polytech\JMBundle\Entity\Vote $vote)
+    public function removeVote(Vote $vote)
     {
         $this->votes->removeElement($vote);
     }
@@ -117,10 +117,10 @@ class Candidat
     /**
      * Set election
      *
-     * @param \Polytech\JMBundle\Entity\Election $election
+     * @param Election $election
      * @return Vote
      */
-    public function setElection(\Polytech\JMBundle\Entity\Election $election)
+    public function setElection(Election $election)
     {
         $this->election = $election;
 
@@ -130,10 +130,14 @@ class Candidat
     /**
      * Get election
      *
-     * @return \Polytech\JMBundle\Entity\Election 
+     * @return Election 
      */
     public function getElection()
     {
         return $this->election;
+    }
+
+    public function __toString() {
+        return $this->getNom();
     }
 }

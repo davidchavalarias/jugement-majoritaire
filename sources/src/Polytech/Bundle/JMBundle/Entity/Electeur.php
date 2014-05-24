@@ -169,4 +169,8 @@ class Electeur
     {
         return $this->votes;
     }
+
+    public function __toString() {
+        return $this->getPrenom() . " " . $this->getNom();
+    }
 }

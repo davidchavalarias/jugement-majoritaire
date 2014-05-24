@@ -1,47 +1,46 @@
-{% extends '::base.html.twig' %}
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
-{% block body -%}
-    <h1>Election list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Started</th>
-                <th>Finished</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('crud_election_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.nom }}</td>
-                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.started }}</td>
-                <td>{{ entity.finished }}</td>
-                <td>
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Liste des élections</h1>
+
+            <table class="table table-hover records_list">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.nom }}</td>
+                        <td>{% if entity.finished %}Terminée{% elseif entity.started %}En cours{% else %}Pas commencée{% endif %}</td>
+                        <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('crud_election_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('crud_election_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
                 <ul>
-                    <li>
-                        <a href="{{ path('crud_election_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('crud_election_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('crud_election_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+                <li>
+                    <a href="{{ path('crud_election_new') }}">
+                        Create a new entry
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
