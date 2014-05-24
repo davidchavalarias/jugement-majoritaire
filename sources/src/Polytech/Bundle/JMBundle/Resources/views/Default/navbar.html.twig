@@ -19,11 +19,11 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a><b>Elections en cours :</b></a></li>
-              {% for e in elections if e.started %}
-                <li><a href="{{ path('polytech_jm_index') }}">> {{ e.nom }}</a></li>
+              {% for e in currentElections if e.started %}
+                <li><a href="{{ path('crud_election_show', {'id': e.id}) }}">> {{ e.nom }}</a></li>
               {% endfor %}
               <li class="divider"></li>
-              <li><a href="{{ path('polytech_jm_candidats') }}">Toutes les élections</a></li>
+              <li><a href="{{ path('crud_election') }}">Toutes les élections</a></li>
               <li class="divider"></li>
               <li><a href="#">Tout réinitialiser</a></li>
             </ul>

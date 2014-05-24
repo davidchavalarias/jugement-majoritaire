@@ -7,7 +7,7 @@ polytech_jm_admin:
     defaults: { _controller: PolytechJMBundle:Default:admin }
     
 polytech_jm_stats:
-    pattern:  /stats
+    pattern:  /election/{idElection}/stats
     defaults: { _controller: PolytechJMBundle:Default:stats }
      
 polytech_jm_candidats:

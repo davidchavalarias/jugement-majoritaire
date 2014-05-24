@@ -10,34 +10,37 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $elections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $oldElections = $em->getRepository('PolytechJMBundle:Election')->findByStarted(false);
 
-        return $this->render('PolytechJMBundle:Default:index.html.twig', array('elections' => $elections, 'oldElections' => $oldElections));
+        return $this->render('PolytechJMBundle:Default:index.html.twig', array('currentElections' => $currentElections, 'oldElections' => $oldElections));
     }
 
     public function voteAction($idElection)
     {
         $em = $this->getDoctrine()->getManager();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
-        return $this->render('PolytechJMBundle:Default:vote.html.twig', array('election' => $election));
+        return $this->render('PolytechJMBundle:Default:vote.html.twig', array('currentElections' => $currentElections, 'election' => $election));
     }
 
     public function checkvoteAction($idElection)
     {
         $em = $this->getDoctrine()->getManager();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
-        return $this->render('PolytechJMBundle:Default:check_vote.html.twig', array('election' => $election));
+        return $this->render('PolytechJMBundle:Default:check_vote.html.twig', array('currentElections' => $currentElections, 'election' => $election));
     }
 
     public function statsAction($idElection)
     {
         $em = $this->getDoctrine()->getManager();
+        $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
-        return $this->render('PolytechJMBundle:Default:stats.html.twig', array('election' => $election));
+        return $this->render('PolytechJMBundle:Default:stats.html.twig', array('currentElections' => $currentElections, 'election' => $election));
     }
 
 

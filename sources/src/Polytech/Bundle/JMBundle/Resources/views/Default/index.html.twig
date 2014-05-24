@@ -5,7 +5,7 @@
 		<div class="row">
 			<h1>Participer à une élection :</h1>
 		</div>
-		{% for e in elections %}
+		{% for e in currentElections %}
 			<div class="row">
 				<a href="{{ path('polytech_jm_check_vote', {'idElection': e.id }) }}">{{ e.nom }}</a>
 			</div>
