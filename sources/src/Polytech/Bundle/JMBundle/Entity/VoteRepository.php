@@ -12,4 +12,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class VoteRepository extends EntityRepository
 {
+	public function countVotesByCandidatAndMention($candidatId, $mentionId)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT(v.electeur) FROM PolytechJMBundle:Vote v WHERE v.mention = :mention AND v.candidat = :candidat'
+            );
+        $query->setParameters(array(
+            'mention' => $mentionId,
+            'candidat' => $candidatId,
+        ));
+        return $query->getOneOrNullResult();
+    }
+
+    public function countVotesByCandidat($candidatId)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT(v.electeur) FROM PolytechJMBundle:Vote v WHERE v.candidat = :candidat'
+            );
+        $query->setParameters(array(
+            'candidat' => $candidatId,
+        ));
+        return $query->getOneOrNullResult();
+    }	
 }

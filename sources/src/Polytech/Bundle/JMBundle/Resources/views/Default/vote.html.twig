@@ -1,5 +1,50 @@
 {% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
+{% form_theme form _self %}
+{% block button_row %}
+	{% spaceless %}
+	    {% if 'data-first-button' in attr %}
+	    <div class="row">
+			<div class="col-md-3"><a href="/" class="btn btn-warning">Annuler et revenir au menu principal</a></div>
+			<div class="col-md-4"></div>
+			<div class="col-md-5">
+	    {% endif %}
+	    {{ form_widget(form) }}
+	    {% if 'data-last-button' in attr %}
+	        </div>
+	    </div>
+	    {% endif %}
+	{% endspaceless %}
+{% endblock button_row %}
+
+{% block button_attributes %}
+	{% spaceless %}
+	    id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif %}
+	    {% for attrname, attrvalue in attr %}{% if attrvalue != 'data-first-button' and attrvalue != 'data-last-button'%}{{ attrname }}="{{ attrvalue }}"{%endif%}{% endfor %}
+	{% endspaceless %}
+{% endblock button_attributes %}
+
+{% block form_label %}
+    {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id, class:'radio-inline' }) %}
+    {% endif %}
+    {% if required %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+{% endblock form_label %}
+
+{% block radio_widget %}
+	{% spaceless %}
+	    <input type="radio" class="radio-inline" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+	{% endspaceless %}
+{% endblock radio_widget %}
+
+
+
 {% block body %}
     <div class="container-fluid">
 		<div class="row">
@@ -9,4 +54,17 @@
 				<a href="{{ path('polytech_jm_vote', {'idElection': election.id }) }}">lien</a>
 			</div>
 	</div>
+    
+    <div class="container-fluid">
+		<div class="row">
+			<h1>Élection par jugement majoritaire - Votez</h1>
+		</div>
+
+    	{{ form(form) }}
+	</div>
+
+	<script>$( document ).ready(function() {
+	$("#form div").addClass("row");
+	});</script>
+
 {% endblock %}

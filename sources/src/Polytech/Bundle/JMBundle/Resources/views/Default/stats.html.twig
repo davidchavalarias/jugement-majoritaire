@@ -1,6 +1,117 @@
 {% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
 {% block body %}
+	
+	<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+	<script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+	<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+	<div id="chartdiv" style={{ '\"width:100%;height:' }}{{ 50+nbC*40 }}{{ 'px;font-size:11px;\"'}}></div>
+
+	<script>
+
+		var chart = AmCharts.makeChart("chartdiv", {{ '{' }}
+			    "type": "serial",
+			    "theme": "none",
+			    "legend": {{ '{' }}
+			        "autoMargins": true,
+			        "borderAlpha": 0.2,
+			        "equalWidths": false,
+			        "horizontalGap": 10,
+			        "markerSize": 10,
+			        "useGraphSettings": true,
+			        "valueAlign": "left",
+			        "valueWidth": 0,
+			        "switchable": false,
+			        "position": "top",
+			        "align": "center"
+			    {{ '}' }},
+			    "dataProvider": [
+			    {% for indiceMM, candArr in indMentionMaj %}
+			    	{% if loop.index != 1 %}
+			    		{{ ',' }}
+			    	{% endif %}
+			    	{% set ind = 0 %}
+			    	{% if candArr[0] is defined %}
+			    		{% for candidat, plus in candArr[0] %}
+					    	{% if loop.index != 1 %}
+					    		{{ ',' }}
+					    	{% endif %}
+					    	{{ '{ \"candidat\": \"' }}{{ candidat }}{{ '\",\n' }}
+					    	{% for mention in nbVMention[candidat] %}
+					    		{{ '\"mention'}}{{ loop.index }}{{ '\": ' }}{{ mention }}{{ ',\n' }}
+					    	{% endfor %}
+					    	{{ '\"limit\": 50 }' }}
+					    	{% set ind = ind + 1 %}
+				    	{% endfor %}
+			    	{% endif %}
+			    	{% if candArr[1] is defined %}
+				    	{% for candidat, plus in candArr[1] %}
+					    	{% if ind != 0 %}
+					    		{{ ',' }}
+					    	{% endif %}
+					    	{{ '{ \"candidat\": \"' }}{{ candidat }}{{ '\",\n' }}
+					    	{% for mention in nbVMention[candidat] %}
+					    		{{ '\"mention'}}{{ loop.index }}{{ '\": ' }}{{ mention }}{{ ',\n' }}
+					    	{% endfor %}
+					    	{{ '\"limit\": 50 }' }}
+					    	{% set ind = ind + 1 %}
+				    	{% endfor %}
+			    	{% endif %}
+			    {% endfor %}
+
+			    ],
+			    "valueAxes": [{
+			        "stackType": "100%",
+			        "axisAlpha": 0,
+			        "gridAlpha": 0,
+			        "labelsEnabled": false,
+			        "position": "left"
+			    }],
+			    "graphs": [
+		    	{% for mention in mentions %}
+			    	{% if loop.index != 1 %}
+			    		{{ ',' }}
+			    	{% endif %}
+			    	{{ '{' }}
+			    	"balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+			        "fillAlphas": 0.9,
+			        "fontSize": 11,
+			        "labelText": "[[percents]]%",
+			        "lineAlpha": 0.5,
+			        "title": {{ '\"' }}{{ mention.nom }}{{ '\"' }},
+			        "type": "column",
+			        "valueField": {{ '\"mention'}}{{ loop.index }}{{ '\"' }}
+		    		{{ '}' }}
+			    {% endfor %}
+			    ,{
+			        "columnWidth": 1.5,
+			        "lineColor": "#000000",
+			        "lineThickness": 3,
+			        "noStepRisers": true,
+			        "stackable": false,
+			        "type": "step",
+			        "valueField": "limit",
+			        "title": "50%",
+			    }],
+			    "columnWidth" : 0.8,
+			    "columnSpacing" : 10,
+			    "rotate": true,
+			    "marginTop": 30,
+			    "marginRight": 30,
+			    "marginLeft": 0,
+			    "marginBottom": 40,
+			    "autoMargins": true,
+			    "categoryField": "candidat",
+			    "categoryAxis": {
+			        "gridPosition": "start",
+			        "axisAlpha": 0,
+			        "gridAlpha": 0
+			    }
+		});
+
+
+
+	</script>
 
 
 {% endblock %}
