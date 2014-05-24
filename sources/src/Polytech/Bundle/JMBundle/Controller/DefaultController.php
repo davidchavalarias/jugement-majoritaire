@@ -42,7 +42,7 @@ class DefaultController extends Controller
 
 
 
-        public function loginAction()
+    public function loginAction()
     {
         $request = $this->getRequest();
         $session = $request->getSession();

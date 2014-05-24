@@ -1,0 +1,31 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+{% block body %}
+
+    <form class="form-horizontal container" action="{{ path('login_check') }}" method="post">
+
+        {% if error %}
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8 alert alert-danger"><strong>Erreur : </strong>{{ error.message }}</div>
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="username">Login :</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="password">Mot de passe :</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="password" id="password" name="_password" />
+            </div>
+            
+        </div>
+
+        <button type="submit" class="col-sm-offset-4 btn btn-default">Connexion</button>
+    </form>
+{% endblock %}
+
