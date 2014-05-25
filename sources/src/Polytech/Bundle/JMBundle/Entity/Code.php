@@ -47,7 +47,7 @@ class Code
     public function __construct()
     {
         $this->used = false;
-        $this->code = generateRandomString();
+        $this->code = $this->generateRandomString();
     }
 
     /**
@@ -112,7 +112,7 @@ class Code
      * @param \Polytech\JMBundle\Entity\Election $election
      * @return Code
      */
-    public function setElection(\Polytech\JMBundle\Entity\Election $election)
+    public function setElection(Election $election)
     {
         $this->election = $election;
 

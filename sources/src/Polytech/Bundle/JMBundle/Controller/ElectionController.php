@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Polytech\Bundle\JMBundle\Entity\Election;
 use Polytech\Bundle\JMBundle\Form\ElectionType;
+use Polytech\Bundle\JMBundle\Entity\Code as Code;
 
 /**
  * Election controller.
@@ -243,8 +244,8 @@ class ElectionController extends Controller
         $entity->setStarted(true);
 
         foreach ($entity->getElecteurs() as $electeur) {
-            $vote = new Code();
-            $vote->setElection($entity);
+            $code = new Code();
+            $code->setElection($entity);
             $em->persist($code);
         }
 
