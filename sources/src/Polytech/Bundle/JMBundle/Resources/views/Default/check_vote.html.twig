@@ -1,12 +1,13 @@
 {% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container">
 		<div class="row">
-			<h1>Saisissez votre code personnel :</h1>
+			<h1>{{ election.nom }}</h1>
+			<h4>Saisissez les informations requises avant de pouvoir voter :</h4>
 		</div>
-			<div class="row">
-				<a href="{{ path('polytech_jm_vote', {'idElection': election.id }) }}">lien</a>
-			</div>
+		<div class="row">
+			{{ form(form) }}
+		</div>
 	</div>
 {% endblock %}

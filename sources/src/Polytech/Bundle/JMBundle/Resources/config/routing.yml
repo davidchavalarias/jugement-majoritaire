@@ -21,7 +21,7 @@ polytech_jm_vote:
     defaults: { _controller: PolytechJMBundle:Default:vote }
     requirements:
         idElection:  \d+
-    #methods: [POST]
+    methods: [POST]
     
 polytech_jm_check_vote:
     pattern:  /election/{idElection}/vote

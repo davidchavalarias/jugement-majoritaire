@@ -17,7 +17,7 @@ class DefaultController extends Controller
         return $this->render('PolytechJMBundle:Default:index.html.twig', array('currentElections' => $currentElections, 'oldElections' => $oldElections));
     }
 
-    public function voteAction(Request $request,$idElection)
+    public function voteAction(Request $request, $idElection)
     {
         $em = $this->getDoctrine()->getManager();
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
@@ -90,12 +90,26 @@ class DefaultController extends Controller
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
+        $form = $this->createCheckForm($idElection);
+
         if($election->getFinished() == true)
         {
             return $this->redirect($this->generateUrl('polytech_jm_index'));
         }
 
-        return $this->render('PolytechJMBundle:Default:check_vote.html.twig', array('currentElections' => $currentElections, 'election' => $election));
+        return $this->render('PolytechJMBundle:Default:check_vote.html.twig', array('currentElections' => $currentElections, 'election' => $election, 'form' => $form->createView()));
+    }
+
+    private function createCheckForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('polytech_jm_vote', array('idElection' => $id)))
+            ->setMethod('POST')
+            ->add('email', 'email', array('label' => 'Votre e-mail'))
+            ->add('code', 'text', array('label' => 'Votre code personnel'))
+            ->add('submit', 'submit', array('label' => 'Connexion', 'attr' => array('class' => 'btn btn-success' )))
+            ->getForm()
+        ;
     }
 
     public function statsAction($idElection)
