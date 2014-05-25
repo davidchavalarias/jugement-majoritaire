@@ -113,10 +113,9 @@ class ElecteurController extends Controller
             $election = $entity->getElection();
             $em->remove($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('crud_electeur', array('id' => $entity->getElection()->getId() )));
         }
-        
-        return $this->redirect($this->generateUrl('crud_election'));
+
+            return $this->redirect($this->generateUrl('crud_electeur', array('id' => $election->getId() )));
     }
 
     /**
@@ -152,7 +151,7 @@ class ElecteurController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('crud_mention_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('crud_electeur_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Supprimer'))
             ->getForm()

@@ -19,7 +19,7 @@
                     <tr>
                         <td>{{ entity.prenom }} {{ entity.nom }}</td>
                         <td>{{ entity.email }}</td>
-                        <td><a class="btn btn-default btn-sm" href="{{ path('crud_electeur_delete_check', { 'id': election.id }) }}">Supprimer</a></td>
+                        <td><a class="btn btn-default btn-sm" href="{{ path('crud_electeur_delete_check', { 'id': entity.id }) }}">Supprimer</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
