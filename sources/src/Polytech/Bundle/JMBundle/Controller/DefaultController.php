@@ -23,7 +23,7 @@ class DefaultController extends Controller
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
-        if($election->getFinished() == true)
+        if($election->getFinished() == true || $election->getStarted() == false)
         {
             return $this->redirect($this->generateUrl('polytech_jm_index'));
         }
@@ -40,7 +40,11 @@ class DefaultController extends Controller
                 'multiple' => false,
                 'label' => $candidat->getNom(),
                 'label_attr' => array('class' => 'col-md-2'),
-                'attr' => array('style' => 'display:inline', 'class' => 'col-md-10')
+                'attr' => array('style' => 'display:inline', 'class' => 'col-md-10'),
+                'query_builder' => function(\Polytech\Bundle\JMBundle\Entity\MentionRepository $repo) use ($election)
+                    {
+                        return $repo->createQueryBuilder('m')->where('m.election = ?1')->setParameter(1,$election)->orderBy('m.id','ASC');
+                    }
             ));
         }
 
@@ -87,13 +91,9 @@ class DefaultController extends Controller
             }
             else
             {
-                return $this->redirect($this->generateUrl('polytech_jm_vote'));
+                return $this->redirect($this->generateUrl('polytech_jm_vote', array('idElection' => $election->getId())));
             }
         }
-
-        //return $this->render('PolytechJMBundle:Default:vote.html.twig', array('candidats' => $candidats, 'form' => $form->createView() ));
-
-
 
         return $this->render('PolytechJMBundle:Default:vote.html.twig', array('currentElections' => $currentElections, 'election' => $election, 'candidats' => $candidats, 'form' => $form->createView()));
     }
@@ -118,8 +118,13 @@ class DefaultController extends Controller
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
+        if($election->getFinished() == false)
+        {
+            return $this->redirect($this->generateUrl('polytech_jm_index'));
+        }
+
         $candidats = $em->getRepository('PolytechJMBundle:Candidat')->findByElection($election->getId());
-        $mentions = $em->getRepository('PolytechJMBundle:Mention')->findAll();
+        $mentions = $em->getRepository('PolytechJMBundle:Mention')->findByElection($election->getId());
         
         $nbrVotes = array();
         $indMentionMaj = array();
