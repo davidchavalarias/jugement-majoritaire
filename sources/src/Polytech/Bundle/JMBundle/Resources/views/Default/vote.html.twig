@@ -3,17 +3,11 @@
 {% form_theme form _self %}
 {% block button_row %}
 	{% spaceless %}
-	    {% if 'data-first-button' in attr %}
 	    <div class="row">
-			<div class="col-md-3"><a href="/" class="btn btn-warning">Annuler et revenir au menu principal</a></div>
+			<div class="col-md-3"><a href="{{ path('polytech_jm_index') }}" class="btn btn-default">Annuler et revenir au menu principal</a></div>
 			<div class="col-md-4"></div>
-			<div class="col-md-5">
-	    {% endif %}
-	    {{ form_widget(form) }}
-	    {% if 'data-last-button' in attr %}
-	        </div>
+			<div class="col-md-5">{{ form_widget(form) }}</div>
 	    </div>
-	    {% endif %}
 	{% endspaceless %}
 {% endblock button_row %}
 
@@ -49,7 +43,7 @@
     
     <div class="container-fluid vote-container">
 		<div class="row">
-			<h1>Élection par jugement majoritaire - Votez</h1>
+			<h1>{{ election.nom }}</h1>
 		</div>
 
     	{{ form(form) }}

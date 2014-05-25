@@ -31,9 +31,11 @@ class DefaultController extends Controller
 
         $candidats = $em->getRepository('PolytechJMBundle:Candidat')->findByElection($election->getId());
         $builder = $this->createFormBuilder();
+
+        setlocale(LC_ALL,'fr_FR.UTF-8');
         foreach ($candidats as $candidat)
         {
-            $builder->add('mention-'.htmlentities(iconv('UTF-8','ASCII//TRANSLIT',str_replace(' ', '_',$candidat->getNom()))), 'entity', array(
+            $builder->add('mention-'.htmlentities(iconv("UTF-8", "ASCII//TRANSLIT", str_replace(' ', '_',$candidat->getNom()) )), 'entity', array(
                 'class' => 'PolytechJMBundle:Mention',
                 'property' => 'nom',
                 'expanded' => true,
@@ -50,18 +52,9 @@ class DefaultController extends Controller
 
         $builder->add('revenir','submit',array(
             'attr' => array(
-                'class' => 'btn btn-info',
-                'first' =>'data-first-button'
-                ),
-            'label' => 'Valider et revenir au menu principal'
-            ));
-
-        $builder->add('continuer','submit',array(
-            'attr' => array(
                 'class' => 'btn btn-primary',
-                'last' =>'data-last-button'
-                ),
-            'label' => 'Valider et continuer le scrutin'
+                'first' =>'data-first-button' ),
+            'label' => 'Valider'
             ));
 
         $form = $builder->getForm();
@@ -85,14 +78,7 @@ class DefaultController extends Controller
             }
             $em->flush();*/
 
-            if($form->get('revenir')->isClicked())
-            {
-                return $this->redirect($this->generateUrl('polytech_jm_index'));
-            }
-            else
-            {
-                return $this->redirect($this->generateUrl('polytech_jm_vote', array('idElection' => $election->getId())));
-            }
+            return $this->redirect($this->generateUrl('polytech_jm_index'));
         }
 
         return $this->render('PolytechJMBundle:Default:vote.html.twig', array('currentElections' => $currentElections, 'election' => $election, 'candidats' => $candidats, 'form' => $form->createView()));
