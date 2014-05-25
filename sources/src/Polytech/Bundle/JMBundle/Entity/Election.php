@@ -38,14 +38,14 @@ class Election
     /**
      * @var boolean
      *
-     * @ORM\Column(name="started", type="boolean")
+     * @ORM\Column(name="started", type="boolean", nullable=true)
      */
     private $started;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="finished", type="boolean")
+     * @ORM\Column(name="finished", type="boolean", nullable=true)
      */
     private $finished;
 
@@ -75,6 +75,8 @@ class Election
         $this->started = false;
         $this->finished = false;
         $this->candidats = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->electeurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mentions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime("now");
     }
 

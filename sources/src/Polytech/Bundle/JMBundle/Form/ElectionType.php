@@ -16,9 +16,6 @@ class ElectionType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('date')
-            ->add('started')
-            ->add('finished')
         ;
     }
     
