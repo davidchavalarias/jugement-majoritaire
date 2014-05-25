@@ -1,0 +1,12 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+    		<h1>Etes-vous sûrs de vouloir supprimer la mention "{{ entity.nom }}" ?</h1>
+
+			{{ form(delete_form) }}
+    	</div>
+	</div>
+{% endblock %}

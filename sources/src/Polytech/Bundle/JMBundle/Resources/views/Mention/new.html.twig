@@ -1,0 +1,16 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+		    <h1>Ajouter une mention</h1>
+
+		    {{ form(form) }}
+
+	        <a class="btn btn-default" href="{{ path('crud_election_show', {'id': entity.election.id}) }}">
+	            Retourner à l'élection
+	        </a>
+		</div>
+	</div>
+{% endblock %}

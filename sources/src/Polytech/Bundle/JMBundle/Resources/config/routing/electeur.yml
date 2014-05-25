@@ -1,0 +1,3 @@
+crud_electeur:
+    pattern:  /{id}
+    defaults: { _controller: "PolytechJMBundle:Electeur:index" }

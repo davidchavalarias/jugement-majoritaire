@@ -1,0 +1,34 @@
+crud_mention:
+    pattern:  /
+    defaults: { _controller: "PolytechJMBundle:Mention:index" }
+
+crud_mention_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PolytechJMBundle:Mention:show" }
+
+crud_mention_new:
+    pattern:  /{id}/new
+    defaults: { _controller: "PolytechJMBundle:Mention:new" }
+
+crud_mention_create:
+    pattern:  /{id}/create
+    defaults: { _controller: "PolytechJMBundle:Mention:create" }
+    requirements: { _method: post }
+
+crud_mention_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PolytechJMBundle:Mention:edit" }
+
+crud_mention_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PolytechJMBundle:Mention:update" }
+    requirements: { _method: post|put }
+
+crud_mention_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PolytechJMBundle:Mention:delete" }
+    requirements: { _method: post|delete }
+
+crud_mention_delete_check:
+    pattern:  /{id}/delete_check
+    defaults: { _controller: "PolytechJMBundle:Mention:deleteCheck" }

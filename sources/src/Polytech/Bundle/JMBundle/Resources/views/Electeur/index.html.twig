@@ -1,0 +1,35 @@
+{% extends "PolytechJMBundle:Default:layout.html.twig" %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>Liste des électeurs pour {nom de l'élection}</h1>
+
+            <table class="table table-hover records_list">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>E-mail</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.prenom }} {{ entity.nom }}</td>
+                        <td>{{ entity.email }}</td>
+                        <td>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            {#<a href="{{ path('crud_election_new') }}">Créer une nouvelle élection</a>#}
+        </div>
+                
+        </div>
+    </div>
+{% endblock %}
