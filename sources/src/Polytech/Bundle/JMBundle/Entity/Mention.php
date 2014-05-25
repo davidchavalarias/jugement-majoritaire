@@ -33,6 +33,12 @@ class Mention
      * @ORM\OneToMany(targetEntity="Vote", mappedBy="mention")
      */
     private $votes; 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Election", inversedBy="mentions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $election;
 
     /**
      * Constructor
@@ -110,5 +116,28 @@ class Mention
 
     public function __toString() {
         return $this->getNom();
+    }
+
+    /**
+     * Set election
+     *
+     * @param Election $election
+     * @return Vote
+     */
+    public function setElection(Election $election)
+    {
+        $this->election = $election;
+
+        return $this;
+    }
+
+    /**
+     * Get election
+     *
+     * @return Election 
+     */
+    public function getElection()
+    {
+        return $this->election;
     }
 }

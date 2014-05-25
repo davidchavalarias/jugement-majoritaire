@@ -8,13 +8,10 @@
 
 		    {{ form(form) }}
 
-			<ul class="record_actions">
-			    <li>
-			        <a href="{{ path('crud_candidat') }}">
-			            Back to the list
-			        </a>
-			    </li>
-			</ul>
+			<a class="btn btn-default" href="{{ path('crud_election_show', {'id': entity.election.id}) }}">
+	            Retourner à l'élection
+	        </a>
+
 		</div>
 	</div>
 {% endblock %}

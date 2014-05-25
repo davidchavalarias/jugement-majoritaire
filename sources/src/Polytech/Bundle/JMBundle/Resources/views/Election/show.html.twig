@@ -19,41 +19,54 @@
                     <thead>
                         <tr>
                             <th>Candidats</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for candidat in entity.candidats %}
                         <tr>
                             <td>{{ candidat.nom }}</td>
-                            <td>{% if not entity.started %}<a class="btn btn-default btn-sm" href="{{ path('crud_candidat_delete_check', { 'id': candidat.id }) }}">Supprimer</a>{% endif %}</td>
+                            <td class="text-center">
+                            {% if not entity.started %}
+                                <a class="btn btn-default btn-sm" href="{{ path('crud_candidat_delete_check', { 'id': candidat.id }) }}">Supprimer</a>
+                            {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                 {% if not entity.started %}
-                <a class="btn btn-default" href="{{ path('crud_candidat_new', {'id': entity.id}) }}">
-                    Ajouter un  candidat
-                </a>
+                    <a class="btn btn-default" href="{{ path('crud_candidat_new', {'id': entity.id}) }}">
+                        Ajouter un  candidat
+                    </a>
                 {% endif %}
             </div>
             <div class="col-sm-6">
                 <table class="records_list table table-hover">
                     <thead>
                         <tr>
-                            <th>Mentions</th>
-                            <th>Actions</th>
+                            <th>Mentions <span style="color: grey; font-weight:normal;">(de la plus favorable à la moins favorable)</span></th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {#{% for mention in entity.mentions %}
+                    {% for mention in entity.mentions %}
                         <tr>
                             <td>{{ mention.nom }}</td>
-                            <td></td>
+                            <td class="text-center">
+                            {% if not entity.started %}
+                                <a class="btn btn-default btn-sm" href="{{ path('crud_mention_delete_check', { 'id': mention.id }) }}">Supprimer</a>
+                            {% endif %}
+                            </td>
                         </tr>
-                    {% endfor %}#}
+                    {% endfor %}
                     </tbody>
                 </table>
+                {% if not entity.started %}
+                    <a class="btn btn-default" href="{{ path('crud_mention_new', {'id': entity.id}) }}">
+                        Ajouter une mention
+                    </a>
+                {% endif %}
             </div>
         </div>
 

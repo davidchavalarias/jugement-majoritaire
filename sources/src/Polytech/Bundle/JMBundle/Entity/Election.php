@@ -55,6 +55,11 @@ class Election
     private $candidats; 
 
     /**
+     * @ORM\OneToMany(targetEntity="Mention", mappedBy="election")
+     */
+    private $mentions; 
+
+    /**
      * @ORM\OneToMany(targetEntity="Code", mappedBy="election")
      */
     private $codes; 
@@ -202,6 +207,40 @@ class Election
     public function getCandidats()
     {
         return $this->candidats;
+    }
+
+    /**
+     * Add mention
+     *
+     * @param Mention $mention
+     * @return Election
+     */
+    public function addMention(Mention $mention)
+    {
+        $this->mentions[] = $mention;
+        $mention->setElection($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove mention
+     *
+     * @param \Polytech\JMBundle\Entity\Mention $mention
+     */
+    public function removeMention(Mention $mention)
+    {
+        $this->mentions->removeElement($mention);
+    }
+
+    /**
+     * Get mentions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMentions()
+    {
+        return $this->mentions;
     }
 
     /**

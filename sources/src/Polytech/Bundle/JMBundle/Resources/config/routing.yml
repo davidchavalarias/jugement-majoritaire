@@ -39,3 +39,7 @@ PolytechJMBundle_crud_election:
 PolytechJMBundle_crud_candidat:
     resource: "routing/candidat.yml"
     prefix:   /admin/candidat
+
+PolytechJMBundle_admin_mention:
+    resource: "routing/mention.yml"
+    prefix:   /admin/mention

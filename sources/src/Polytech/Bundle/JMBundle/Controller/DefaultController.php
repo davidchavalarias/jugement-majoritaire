@@ -12,7 +12,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
-        $oldElections = $em->getRepository('PolytechJMBundle:Election')->findByStarted(false);
+        $oldElections = $em->getRepository('PolytechJMBundle:Election')->findByFinished(true);
 
         return $this->render('PolytechJMBundle:Default:index.html.twig', array('currentElections' => $currentElections, 'oldElections' => $oldElections));
     }

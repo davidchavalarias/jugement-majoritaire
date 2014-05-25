@@ -29,7 +29,6 @@ crud_candidat_delete:
     defaults: { _controller: "PolytechJMBundle:Candidat:delete" }
     requirements: { _method: post|delete }
 
-
 crud_candidat_delete_check:
     pattern:  /{id}/delete_check
     defaults: { _controller: "PolytechJMBundle:Candidat:deleteCheck" }
