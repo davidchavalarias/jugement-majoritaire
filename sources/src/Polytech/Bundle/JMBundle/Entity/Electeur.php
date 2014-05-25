@@ -42,11 +42,12 @@ class Electeur
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
-
+    
     /**
-     * @ORM\OneToMany(targetEntity="Vote", mappedBy="electeur")
+     * @ORM\ManyToOne(targetEntity="Election", inversedBy="electeurs")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $votes; 
+    private $election;
 
 
     /**
@@ -54,7 +55,6 @@ class Electeur
      */
     public function __construct()
     {
-        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -137,40 +137,30 @@ class Electeur
         return $this->email;
     }
 
+    public function __toString() {
+        return $this->getPrenom() . " " . $this->getNom();
+    }
+
     /**
-     * Add votes
+     * Set election
      *
-     * @param \Polytech\JMBundle\Entity\Vote $votes
+     * @param Election $election
      * @return Electeur
      */
-    public function addVote(\Polytech\JMBundle\Entity\Vote $votes)
+    public function setElection(Election $election)
     {
-        $this->votes[] = $votes;
+        $this->election = $election;
 
         return $this;
     }
 
     /**
-     * Remove votes
+     * Get election
      *
-     * @param \Polytech\JMBundle\Entity\Vote $votes
+     * @return Election 
      */
-    public function removeVote(\Polytech\JMBundle\Entity\Vote $votes)
+    public function getElection()
     {
-        $this->votes->removeElement($votes);
-    }
-
-    /**
-     * Get votes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    public function __toString() {
-        return $this->getPrenom() . " " . $this->getNom();
+        return $this->election;
     }
 }

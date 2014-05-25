@@ -27,6 +27,13 @@ class Code
      * @ORM\Column(name="code", type="string", length=255)
      */
     private $code;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="used", type="boolean")
+     */
+    private $used;
     
     /**
      * @ORM\ManyToOne(targetEntity="Election", inversedBy="codes")
@@ -66,6 +73,29 @@ class Code
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Set used
+     *
+     * @param boolean $used
+     * @return Code
+     */
+    public function setUsed($used)
+    {
+        $this->used = $used;
+
+        return $this;
+    }
+
+    /**
+     * Get used
+     *
+     * @return boolean 
+     */
+    public function isUsed()
+    {
+        return $this->used;
     }
 
     /**

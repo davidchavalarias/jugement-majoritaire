@@ -28,12 +28,6 @@ class Vote
     private $candidat;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Electeur", inversedBy="votes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $electeur;
-    
-    /**
      * @ORM\ManyToOne(targetEntity="Mention", inversedBy="votes")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -71,29 +65,6 @@ class Vote
     public function getCandidat()
     {
         return $this->candidat;
-    }
-
-    /**
-     * Set electeur
-     *
-     * @param \Polytech\JMBundle\Entity\Electeur $electeur
-     * @return Vote
-     */
-    public function setElecteur(\Polytech\JMBundle\Entity\Electeur $electeur)
-    {
-        $this->electeur = $electeur;
-
-        return $this;
-    }
-
-    /**
-     * Get electeur
-     *
-     * @return \Polytech\JMBundle\Entity\Electeur 
-     */
-    public function getElecteur()
-    {
-        return $this->electeur;
     }
 
     /**

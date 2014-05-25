@@ -12,6 +12,7 @@
             {% elseif not entity.finished %}
                 <a href="{{ path('crud_election_setFinished', {'id': entity.id}) }}" class="btn btn-danger">Terminer le vote</a>
             {% endif %}
+            <a class="btn btn-info" href="{{ path('crud_electeur', {'id': entity.id}) }}">Gestion des électeurs</a>
         </div>
         <div class="row">
             <div class="col-sm-6">

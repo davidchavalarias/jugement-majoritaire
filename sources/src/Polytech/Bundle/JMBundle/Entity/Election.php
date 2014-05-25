@@ -55,6 +55,11 @@ class Election
     private $candidats; 
 
     /**
+     * @ORM\OneToMany(targetEntity="Electeur", mappedBy="election")
+     */
+    private $electeurs; 
+
+    /**
      * @ORM\OneToMany(targetEntity="Mention", mappedBy="election")
      */
     private $mentions; 
@@ -207,6 +212,40 @@ class Election
     public function getCandidats()
     {
         return $this->candidats;
+    }
+
+    /**
+     * Add electeurs
+     *
+     * @param Electeur $electeur
+     * @return Election
+     */
+    public function addElecteur(Electeur $electeur)
+    {
+        $this->electeurs[] = $electeur;
+        $electeur->setElection($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove electeurs
+     *
+     * @param \Polytech\JMBundle\Entity\Electeur $electeur
+     */
+    public function removeElecteur(Electeur $electeur)
+    {
+        $this->electeurs->removeElement($electeur);
+    }
+
+    /**
+     * Get electeurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getElecteurs()
+    {
+        return $this->electeurs;
     }
 
     /**
