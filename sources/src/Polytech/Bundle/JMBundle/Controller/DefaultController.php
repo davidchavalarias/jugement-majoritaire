@@ -23,6 +23,12 @@ class DefaultController extends Controller
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
 
+        if($election->getFinished() == true)
+        {
+            return $this->redirect($this->generateUrl('polytech_jm_index'));
+        }
+
+
         $candidats = $em->getRepository('PolytechJMBundle:Candidat')->findByElection($election->getId());
         $builder = $this->createFormBuilder();
         foreach ($candidats as $candidat)
@@ -97,6 +103,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentElections = $em->getRepository('PolytechJMBundle:Election')->findCurrentElections();
         $election = $em->getRepository('PolytechJMBundle:Election')->find($idElection);
+
+        if($election->getFinished() == true)
+        {
+            return $this->redirect($this->generateUrl('polytech_jm_index'));
+        }
 
         return $this->render('PolytechJMBundle:Default:check_vote.html.twig', array('currentElections' => $currentElections, 'election' => $election));
     }
