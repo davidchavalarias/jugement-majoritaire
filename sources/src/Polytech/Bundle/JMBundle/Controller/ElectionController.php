@@ -241,6 +241,13 @@ class ElectionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
         $entity->setStarted(true);
+
+        foreach ($entity->getElecteurs() as $electeur) {
+            $vote = new Code();
+            $vote->setElection($entity);
+            $em->persist($code);
+        }
+
         $em->flush();
 
         return $this->redirect($this->generateUrl('crud_election_show', array('id' => $id )));
@@ -254,5 +261,19 @@ class ElectionController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('crud_election_show', array('id' => $id )));
+    }
+
+    public function listeElecteursCodesAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('PolytechJMBundle:Election')->find($id);
+        $electeurs = $entity->getElecteurs();
+        $codes = $entity->getCodes();
+
+        return $this->render('PolytechJMBundle:Election:codes.html.twig', array(
+            'entity'            => $entity,
+            'electeurs'         => $electeurs,
+            'codes'             => $codes,
+        ));
     }
 }

@@ -36,3 +36,7 @@ crud_election_setStarted:
 crud_election_setFinished:
     pattern:  /{id}/finish
     defaults: { _controller: "PolytechJMBundle:Election:setFinished" }
+
+crud_liste_electeurs_codes:
+    pattern:  /{id}/codes
+    defaults: { _controller: "PolytechJMBundle:Election:listeElecteursCodes" }

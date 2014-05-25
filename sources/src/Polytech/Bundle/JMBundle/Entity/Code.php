@@ -41,6 +41,14 @@ class Code
      */
     private $election;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->used = false;
+        $this->code = generateRandomString();
+    }
 
     /**
      * Get id
@@ -123,5 +131,15 @@ class Code
 
     public function __toString() {
         return $this->getCode();
+    }
+
+
+    private function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
     }
 }

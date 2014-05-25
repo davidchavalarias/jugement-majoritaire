@@ -12,8 +12,13 @@
             {% elseif not entity.finished %}
                 <a href="{{ path('crud_election_setFinished', {'id': entity.id}) }}" class="btn btn-danger">Terminer le vote</a>
             {% endif %}
-            <a class="btn btn-info" href="{{ path('crud_electeur', {'id': entity.id}) }}">Gestion des électeurs</a>
-        </div>
+            {% if not entity.started %}
+                <a class="btn btn-info" href="{{ path('crud_electeur', {'id': entity.id}) }}">Gestion des électeurs</a>
+            {% elseif not entity.finished %}
+                <a class="btn btn-info" href="{{ path('crud_liste_electeurs_codes', {'id': entity.id}) }}">Imprimer des codes personnels</a>
+            {% endif %}
+            
+    </div>
         <div class="row">
             <div class="col-sm-6">
                 <table class="records_list table table-hover">
