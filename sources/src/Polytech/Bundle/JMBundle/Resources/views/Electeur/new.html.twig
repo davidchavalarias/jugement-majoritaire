@@ -4,14 +4,13 @@
 {% block body %}
     <div class="container">
         <div class="row">
-		    <h1>Nouveau candidat</h1>
+		    <h1>Ajouter un électeur</h1>
 
 		    {{ form(form) }}
 
-			<a class="btn btn-default" href="{{ path('crud_election_show', {'id': entity.election.id}) }}">
+	        <a class="btn btn-default" href="{{ path('crud_election_show', {'id': entity.election.id}) }}">
 	            Retourner à l'élection
 	        </a>
-
 		</div>
 	</div>
 {% endblock %}

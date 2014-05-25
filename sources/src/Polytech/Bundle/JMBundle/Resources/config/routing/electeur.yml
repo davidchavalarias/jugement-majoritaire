@@ -1,3 +1,21 @@
 crud_electeur:
     pattern:  /{id}
     defaults: { _controller: "PolytechJMBundle:Electeur:index" }
+
+crud_electeur_new:
+    pattern:  /{id}/new
+    defaults: { _controller: "PolytechJMBundle:Electeur:new" }
+
+crud_electeur_create:
+    pattern:  /{id}/create
+    defaults: { _controller: "PolytechJMBundle:Electeur:create" }
+    requirements: { _method: post }
+
+crud_electeur_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PolytechJMBundle:Electeur:delete" }
+    requirements: { _method: post|delete }
+
+crud_electeur_delete_check:
+    pattern:  /{id}/delete_check
+    defaults: { _controller: "PolytechJMBundle:Electeur:deleteCheck" }

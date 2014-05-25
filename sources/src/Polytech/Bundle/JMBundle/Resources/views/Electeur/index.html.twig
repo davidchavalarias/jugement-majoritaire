@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <h1>Liste des électeurs pour {{ electionNom }}</h1>
+            <h1>Liste des électeurs pour {{ election.nom }}</h1>
 
             <table class="table table-hover records_list">
                 <thead>
@@ -19,16 +19,19 @@
                     <tr>
                         <td>{{ entity.prenom }} {{ entity.nom }}</td>
                         <td>{{ entity.email }}</td>
-                        <td>
-                        </td>
+                        <td><a class="btn btn-default btn-sm" href="{{ path('crud_electeur_delete_check', { 'id': election.id }) }}">Supprimer</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="row">
-            {#<a href="{{ path('crud_election_new') }}">Créer une nouvelle élection</a>#}
+            <a class="btn btn-default" href="{{ path('crud_electeur_new', {'id': election.id}) }}">Ajouter un électeur</a>
+            <a class="btn btn-default" href="{{ path('crud_election_show', {'id': election.id}) }}">
+                Retourner à l'élection
+            </a>
         </div>
+
                 
         </div>
     </div>

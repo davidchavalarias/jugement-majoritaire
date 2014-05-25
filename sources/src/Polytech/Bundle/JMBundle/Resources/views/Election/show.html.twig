@@ -13,9 +13,17 @@
                 <a href="{{ path('crud_election_setFinished', {'id': entity.id}) }}" class="btn btn-danger">Terminer le vote</a>
             {% endif %}
             {% if not entity.started %}
-                <a class="btn btn-info" href="{{ path('crud_electeur', {'id': entity.id}) }}">Gestion des électeurs</a>
+                <a class="btn btn-info" href="{{ path('crud_electeur', {'id': entity.id}) }}">Gestion des électeurs :
+                    {% if entity.electeurs|length == 0 %}
+                        Aucun électeur
+                    {% elseif entity.electeurs|length == 1 %}
+                        1 électeur
+                    {% else %}
+                        {{ entity.electeurs|length }} électeurs
+                    {% endif %}
+                </a>
             {% elseif not entity.finished %}
-                <a class="btn btn-info" href="{{ path('crud_liste_electeurs_codes', {'id': entity.id}) }}">Imprimer des codes personnels</a>
+                <a class="btn btn-info" href="{{ path('crud_liste_electeurs_codes', {'id': entity.id}) }}"  target="_blank">Imprimer les codes personnels</a>
             {% endif %}
             
     </div>
@@ -25,18 +33,18 @@
                     <thead>
                         <tr>
                             <th>Candidats</th>
-                            <th class="text-center">Actions</th>
+                            {% if not entity.started %}<th class="text-center">Actions</th>{% endif %}
                         </tr>
                     </thead>
                     <tbody>
                     {% for candidat in entity.candidats %}
                         <tr>
                             <td>{{ candidat.nom }}</td>
-                            <td class="text-center">
                             {% if not entity.started %}
-                                <a class="btn btn-default btn-sm" href="{{ path('crud_candidat_delete_check', { 'id': candidat.id }) }}">Supprimer</a>
+                                <td class="text-center">
+                                    <a class="btn btn-default btn-sm" href="{{ path('crud_candidat_delete_check', { 'id': candidat.id }) }}">Supprimer</a>
+                                </td>
                             {% endif %}
-                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -52,18 +60,18 @@
                     <thead>
                         <tr>
                             <th>Mentions <span style="color: grey; font-weight:normal;">(de la plus favorable à la moins favorable)</span></th>
-                            <th class="text-center">Actions</th>
+                            {% if not entity.started %}<th class="text-center">Actions</th>{% endif %}
                         </tr>
                     </thead>
                     <tbody>
                     {% for mention in entity.mentions %}
                         <tr>
                             <td>{{ mention.nom }}</td>
-                            <td class="text-center">
                             {% if not entity.started %}
-                                <a class="btn btn-default btn-sm" href="{{ path('crud_mention_delete_check', { 'id': mention.id }) }}">Supprimer</a>
+                                <td class="text-center">
+                                    <a class="btn btn-default btn-sm" href="{{ path('crud_mention_delete_check', { 'id': mention.id }) }}">Supprimer</a>
+                                </td>
                             {% endif %}
-                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

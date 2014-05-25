@@ -98,7 +98,7 @@ class Electeur
      */
     public function setPrenom($prenom)
     {
-        $this->Prenom = $prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }

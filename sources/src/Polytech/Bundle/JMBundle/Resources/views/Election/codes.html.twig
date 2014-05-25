@@ -2,7 +2,13 @@
 
 
 {% block body %}
-	
+	<style>
+		th, td {
+			height: 50px;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	</style>
 	<table>
 		<thead>
 			<tr>
@@ -12,12 +18,14 @@
 			</tr>
 		</thead>
 		<tbody>
+			{% set nb = 0 %}
 			{% for e in electeurs %}
 				<tr>
 					<td>{{ e.prenom }} {{ e.nom }}</td>
 					<td>{{ e.email }}</td>
-					<td></td>
+					<td>{{ codes[nb] }}</td>
 				</tr>
+				{% set nb = nb+1 %}
 			{% endfor %}
 		</tbody>
 	</table>
