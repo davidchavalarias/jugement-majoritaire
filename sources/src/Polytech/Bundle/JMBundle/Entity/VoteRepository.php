@@ -16,7 +16,7 @@ class VoteRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
             ->createQuery(
-                'SELECT COUNT(v.electeur) FROM PolytechJMBundle:Vote v WHERE v.mention = :mention AND v.candidat = :candidat'
+                'SELECT COUNT(v) FROM PolytechJMBundle:Vote v WHERE v.mention = :mention AND v.candidat = :candidat'
             );
         $query->setParameters(array(
             'mention' => $mentionId,
@@ -29,7 +29,7 @@ class VoteRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
             ->createQuery(
-                'SELECT COUNT(v.electeur) FROM PolytechJMBundle:Vote v WHERE v.candidat = :candidat'
+                'SELECT COUNT(v) FROM PolytechJMBundle:Vote v WHERE v.candidat = :candidat'
             );
         $query->setParameters(array(
             'candidat' => $candidatId,
