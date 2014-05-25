@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Mail</th>
+				<th>Code</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for e in electeurs %}
+				<tr>
+					<td>{{ e.prenom }} {{ e.nom }}</td>
+					<td>{{ e.email }}</td>
+					<td></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
