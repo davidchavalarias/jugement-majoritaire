@@ -163,8 +163,6 @@ class DefaultController extends Controller
                 foreach ($election->getCodes() as $c) {
                     if (strcmp($c->getCode(), $code)==0 && $c->isUsed()==false)
                         return true;
-                    else
-                        return false;
                 }
             }
         }
