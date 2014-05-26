@@ -11,12 +11,16 @@ body {
     padding-right: 10px;
 }
 
+.login-container {
+    padding-top: 30px;
+}
+
 .vote-container {
     padding-top: 30px;
     margin-top: -30px;
 }
 
-.vote-container #form .row {
+.vote-container #form_vote .row {
     margin-bottom: 10px;
 }
 

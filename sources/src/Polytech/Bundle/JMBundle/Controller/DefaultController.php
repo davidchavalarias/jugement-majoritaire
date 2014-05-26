@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Polytech\Bundle\JMBundle\Entity\Vote;
 use Polytech\Bundle\JMBundle\Entity\Candidat;
+use Polytech\Bundle\JMBundle\Entity\Election as Election;
 use Doctrine\Common\Util\Debug;
 
 class DefaultController extends Controller
@@ -59,6 +60,9 @@ class DefaultController extends Controller
                 'first' =>'data-first-button' ),
             'label' => 'Valider'
             ));
+        $form_check = $request->request->get('form_check');
+        $builder->add('code', 'hidden', array('data' => $form_check['code']));
+        $builder->add('email', 'hidden', array('data' => $form_check['email']));
 
         $form = $builder->getForm();
         $form->handleRequest($request);
@@ -107,14 +111,17 @@ class DefaultController extends Controller
                     $vote->setMention($form->get('mention-'.htmlentities(iconv('UTF-8','ASCII//TRANSLIT',str_replace(' ', '_',$candidat->getNom()))))->getData());
                     $em->persist($vote);
                 }
+                $election->setCodeAndElecteur($form->get('email')->getData(), $form->get('code')->getData());
                 $em->flush();
                 return $this->redirect($this->generateUrl('polytech_jm_index'));
             }
             else if($request->request->has('form_check')){
-                // verif bon Code et email
                 $formCheck = $request->request->get('form_check');
                 $code = $formCheck["code"];
                 $email = $formCheck["email"];
+                if ($this->checkCodeAndElecteur($election, $email, $code)==false) {
+                    return $this->redirect($this->generateUrl('polytech_jm_check_vote', array('idElection' => $idElection) ));
+                }
             }
         }
 
@@ -147,6 +154,21 @@ class DefaultController extends Controller
             ->add('submit', 'submit', array('label' => 'Connexion', 'attr' => array('class' => 'btn btn-success' )))
             ->getForm()
         ;
+    }
+
+    private function checkCodeAndElecteur(Election $election, $email, $code)
+    {
+        foreach ($election->getElecteurs() as $e) {
+            if (strcmp($e->getEmail(), $email)==0 && $e->getDejaVote()==false) {
+                foreach ($election->getCodes() as $c) {
+                    if (strcmp($c->getCode(), $code)==0 && $c->isUsed()==false)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+        }
+        return false;
     }
 
     public function statsAction($idElection)

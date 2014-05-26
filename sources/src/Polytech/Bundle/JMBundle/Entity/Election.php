@@ -321,4 +321,22 @@ class Election
     public function __toString() {
         return $this->getNom();
     }
+
+    public function setCodeAndElecteur($email, $code)
+    {
+        foreach ($this->electeurs as $e) {
+            if (strcmp($e->getEmail(), $email)==0 /*&& $e->getDejaVote()==false*/)
+            {
+                $e->setDejaVote(true);
+                break;
+            }
+        }
+        foreach ($this->codes as $c) {
+            if (strcmp($c->getCode(), $code)==0 /*&& $c->isUsed()==false*/) 
+            {
+                $c->setUsed(true);
+                break;
+            }
+        }
+    }
 }

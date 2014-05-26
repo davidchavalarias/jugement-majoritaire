@@ -42,6 +42,13 @@ class Electeur
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="dejaVote", type="boolean")
+     */
+    private $dejaVote;
     
     /**
      * @ORM\ManyToOne(targetEntity="Election", inversedBy="electeurs")
@@ -55,6 +62,7 @@ class Electeur
      */
     public function __construct()
     {
+        $this->dejaVote  = false;
     }
 
     /**
@@ -136,6 +144,35 @@ class Electeur
     {
         return $this->email;
     }
+
+    /**
+     * Set dejaVote
+     *
+     * @param boolean $dejaVote
+     * @return Electeur
+     */
+    public function setDejaVote($dejaVote)
+    {
+        $this->dejaVote = $dejaVote;
+
+        return $this;
+    }
+
+    /**
+     * Get dejaVote
+     *
+     * @return boolean 
+     */
+    public function isDejaVote()
+    {
+        return $this->dejaVote;
+    }
+
+    public function getDejaVote()
+    {
+        return $this->dejaVote;
+    }
+
 
     public function __toString() {
         return $this->getPrenom() . " " . $this->getNom();

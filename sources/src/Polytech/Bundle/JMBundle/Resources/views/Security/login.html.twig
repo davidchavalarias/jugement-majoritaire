@@ -2,8 +2,12 @@
 
 {% block body %}
 
-    <form class="form-horizontal container" action="{{ path('login_check') }}" method="post">
-
+    <form class="form-horizontal container login-container" action="{{ path('login_check') }}" method="post">
+        
+        <div class="row">
+            <h4 class="col-sm-offset-3">Saisissez vos identifiants pour accéder à la partie Administration :</h4>
+            <br>
+        </div>
         {% if error %}
             <div class="row">
                 <div class="col-sm-offset-2 col-sm-8 alert alert-danger"><strong>Erreur : </strong>{{ error.message }}</div>
