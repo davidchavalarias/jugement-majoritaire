@@ -30,7 +30,7 @@ class DefaultController extends Controller
 
 
         $candidats = $em->getRepository('PolytechJMBundle:Candidat')->findByElection($election->getId());
-        $builder = $this->createFormBuilder();
+        $builder = $this->get('form.factory')->createNamedBuilder('form_vote','form');
 
         setlocale(LC_ALL,'fr_FR.UTF-8');
         foreach ($candidats as $candidat)
@@ -57,12 +57,23 @@ class DefaultController extends Controller
             'label' => 'Valider'
             ));
 
-        $form = $builder->getForm();
+        /*$form = $builder->getForm();
         $form->handleRequest($request);
 
-        if ($form->isValid())
+        /*if($form->isValid())
         {
             $data = $form->getData();
+
+            if($form->getName() === 'form_mention')
+            {
+                return $this->redirect($this->generateUrl('polytech_jm_index'));
+            }
+
+            if($form->getName() === 'form_check')
+            {
+                Debug::dump($data);
+                //return $this->redirect($this->generateUrl('polytech_jm_check_vote'));
+            }
 
             /*Gérer l'ajout des vote dans la bdd ici*/
             /*$elec = (new Electeur())->setNom('Electeur');
@@ -76,9 +87,29 @@ class DefaultController extends Controller
                 $em->persist($vote);
 
             }
-            $em->flush();*/
+            $em->flush();
 
             return $this->redirect($this->generateUrl('polytech_jm_index'));
+        }*/
+
+        if('POST' === $request->getMethod()){
+ 
+            if($request->request->has('form_vote'))
+            {
+                setlocale(LC_ALL,'fr_FR.UTF-8');
+                foreach ($candidats as $candidat)
+                {
+                    $vote = new Vote();
+                    $vote->setCandidat($candidat);
+                    $vote->setMention($form->get('mention-'.htmlentities(iconv('UTF-8','ASCII//TRANSLIT',str_replace(' ', '_',$candidat->getNom())))->getData()));
+                    $em->persist($vote);
+                }
+                $em->flush();
+                return $this->redirect($this->generateUrl('polytech_jm_index'));
+            }
+            else if($request->request->has('form_check')){
+                // verif bon Code et email
+            }
         }
 
         return $this->render('PolytechJMBundle:Default:vote.html.twig', array('currentElections' => $currentElections, 'election' => $election, 'candidats' => $candidats, 'form' => $form->createView()));
@@ -102,7 +133,7 @@ class DefaultController extends Controller
 
     private function createCheckForm($id)
     {
-        return $this->createFormBuilder()
+        return $this->get('form.factory')->createNamedBuilder('form_check','form')
             ->setAction($this->generateUrl('polytech_jm_vote', array('idElection' => $id)))
             ->setMethod('POST')
             ->add('email', 'email', array('label' => 'Votre e-mail'))
