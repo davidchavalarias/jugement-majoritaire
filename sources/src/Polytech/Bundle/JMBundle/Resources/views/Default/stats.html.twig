@@ -1,10 +1,11 @@
 {% extends "PolytechJMBundle:Default:layout.html.twig" %}
 
 {% block body %}
-	
-	<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-	<script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-	<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+
+	<script type="text/javascript" src="{{ asset('js/amcharts/amcharts.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/amcharts/serial.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/amcharts/themes/none.js') }}"></script>
+
 	<div id="chartdiv" style={{ '\"width:100%;height:' }}{{ 50+nbC*40 }}{{ 'px;font-size:11px;\"'}}></div>
 
 	<script>
