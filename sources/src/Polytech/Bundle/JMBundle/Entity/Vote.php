@@ -50,7 +50,7 @@ class Vote
      * @param \Polytech\JMBundle\Entity\Candidat $candidat
      * @return Vote
      */
-    public function setCandidat(\Polytech\JMBundle\Entity\Candidat $candidat)
+    public function setCandidat(\Polytech\Bundle\JMBundle\Entity\Candidat $candidat)
     {
         $this->candidat = $candidat;
 
@@ -73,7 +73,7 @@ class Vote
      * @param \Polytech\JMBundle\Entity\Mention $mention
      * @return Vote
      */
-    public function setMention(\Polytech\JMBundle\Entity\Mention $mention)
+    public function setMention(\Polytech\Bundle\JMBundle\Entity\Mention $mention)
     {
         $this->mention = $mention;
 

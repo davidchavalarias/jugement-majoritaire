@@ -5,6 +5,9 @@ namespace Polytech\Bundle\JMBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Polytech\Bundle\JMBundle\Entity\Vote;
+use Polytech\Bundle\JMBundle\Entity\Candidat;
+use Doctrine\Common\Util\Debug;
 
 class DefaultController extends Controller
 {
@@ -57,7 +60,7 @@ class DefaultController extends Controller
             'label' => 'Valider'
             ));
 
-        /*$form = $builder->getForm();
+        $form = $builder->getForm();
         $form->handleRequest($request);
 
         /*if($form->isValid())
@@ -101,7 +104,7 @@ class DefaultController extends Controller
                 {
                     $vote = new Vote();
                     $vote->setCandidat($candidat);
-                    $vote->setMention($form->get('mention-'.htmlentities(iconv('UTF-8','ASCII//TRANSLIT',str_replace(' ', '_',$candidat->getNom())))->getData()));
+                    $vote->setMention($form->get('mention-'.htmlentities(iconv('UTF-8','ASCII//TRANSLIT',str_replace(' ', '_',$candidat->getNom()))))->getData());
                     $em->persist($vote);
                 }
                 $em->flush();
@@ -109,6 +112,9 @@ class DefaultController extends Controller
             }
             else if($request->request->has('form_check')){
                 // verif bon Code et email
+                $formCheck = $request->request->get('form_check');
+                $code = $formCheck["code"];
+                $email = $formCheck["email"];
             }
         }
 
