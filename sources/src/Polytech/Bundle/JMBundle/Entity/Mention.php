@@ -87,7 +87,7 @@ class Mention
      * @param \Polytech\JMBundle\Entity\Vote $vote
      * @return Mention
      */
-    public function addVote(\Polytech\JMBundle\Entity\Vote $vote)
+    public function addVote(Vote $vote)
     {
         $this->votes[] = $vote;
 
@@ -99,7 +99,7 @@ class Mention
      *
      * @param \Polytech\JMBundle\Entity\Vote $vote
      */
-    public function removeVote(\Polytech\JMBundle\Entity\Vote $vote)
+    public function removeVote(Vote $vote)
     {
         $this->votes->removeElement($vote);
     }
